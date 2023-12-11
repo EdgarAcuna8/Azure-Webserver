@@ -1,53 +1,20 @@
-# Azure-SOC
-# Building a SOC + Honeynet in Azure (Live Traffic)
-![Cloud Honeynet / SOC](https://github.com/EdgarAcuna8/Azure-SOC/assets/146898815/4349ce5a-a5b5-4bdb-a22e-1e057599039a)
-
-## Introduction
-
-In this project, I build a mini honeynet in Azure and ingest log sources from various resources into a Log Analytics workspace, which is then used by Microsoft Sentinel to build attack maps, trigger alerts, and create incidents. I measured some security metrics in the insecure environment for 24 hours, apply some security controls to harden the environment, measure metrics for another 24 hours, then show the results below. The metrics we will show are:
-
-- SecurityEvent (Windows Event Logs)
-- Syslog (Linux Event Logs)
-- SecurityAlert (Log Analytics Alerts Triggered)
-- SecurityIncident (Incidents created by Sentinel)
-- AzureNetworkAnalytics_CL (Malicious Flows allowed into our honeynet)
-
-## Architecture Before Hardening / Security Controls
-![Architecture Diagram](https://i.imgur.com/aBDwnKb.jpg)
-
-## Architecture After Hardening / Security Controls
-![Architecture Diagram](https://i.imgur.com/YQNa9Pp.jpg)
-
-The architecture of the mini honeynet in Azure consists of the following components:
-
-- Virtual Network (VNet)
-- Network Security Group (NSG)
-- Virtual Machines (2 windows, 1 linux)
-- Log Analytics Workspace
-- Azure Key Vault
-- Azure Storage Account
-- Microsoft Sentinel
-
-For the "BEFORE" metrics, all resources were originally deployed, exposed to the internet. The Virtual Machines had both their Network Security Groups and built-in firewalls wide open, and all other resources are deployed with public endpoints visible to the Internet; aka, no use for Private Endpoints.
-
-For the "AFTER" metrics, Network Security Groups were hardened by blocking ALL traffic with the exception of my admin workstation, and all other resources were protected by their built-in firewalls as well as Private Endpoint
-
-## Attack Maps Before Hardening / Security Controls
-![NSG Allowed Inbound Malicious Flows](https://github.com/EdgarAcuna8/Azure-SOC/assets/146898815/5c34a75a-810a-44d5-8772-a88786d6d7f6)<br>
-![Linux Syslog Auth Failures](https://github.com/EdgarAcuna8/Azure-SOC/assets/146898815/55c81231-468e-43a9-b48c-1abb5eb233e5)<br>
-![Windows RDP/SMB Auth Failures](https://github.com/EdgarAcuna8/Azure-SOC/assets/146898815/6b5007eb-93fd-49dd-9f45-2007405a212e)<br>
-
-
-```All map queries returned no results due to no instances of malicious activity for the 24 hour period after hardening.```
-
-## Metrics Before & After Hardening / Security Controls
-
+# Azure VM & Web Server
+# Create a Virtual Machine and Deploy a Web Server in Azure
 <p align="center" width="100%">
-    <img src="https://github.com/EdgarAcuna8/Azure-SOC/assets/146898815/c72569c0-e6f7-46f7-a86a-2226fb539b42">
+    <img src="https://github.com/EdgarAcuna8/Azure-Webserver/assets/146898815/d42c6798-078b-4ae8-a3dd-03640e131c78">
 </p>
 
-## Conclusion
+## Overview
 
-In this project, a mini honeynet was constructed in Microsoft Azure and log sources were integrated into a Log Analytics workspace. Microsoft Sentinel was employed to trigger alerts and create incidents based on the ingested logs. Additionally, metrics were measured in the insecure environment before security controls were applied, and then again after implementing security measures. It is noteworthy that the number of security events and incidents were drastically reduced after the security controls were applied, demonstrating their effectiveness.
+In this project, I learned and practiced:
 
-It is worth noting that if the resources within the network were heavily utilized by regular users, it is likely that more security events and alerts may have been generated within the 24-hour period following the implementation of the security controls.
+- Azure fundamentals: Resource groups, virtual networks, subnets, network security groups, Bastion, virtual machines
+- Creating VM with Ubuntu Web Server
+- Connecting to VM via Bastion SSH and basic web server (Nextcloud) configuration
+- Set up public IP in DNS label
+- Creating/managing resources using Powershell
+
+By the end of this project, I was able to navigate to my web server on my browser and login, by using the DNS configuration I had applied.
+<p align="center" width="100%">
+    <img src="https://github.com/EdgarAcuna8/Azure-Webserver/assets/146898815/54a04ce4-f167-4e3e-9a34-24e3710a234b">
+</p>
